@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+
+
+<br>
+<div class="col-md-12 text-center">
+<h1>Choose the Fields</h1>
+</div>
+
+<form action="{% url 'data' %}" enctype="multipart/form-data" method="POST">
+  {% csrf_token %}
+  <br>
+  <div class="form-row text-center">
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault01">Tag</label>
+      <input type="text" class="form-control" name='tagged' id="validationDefault01" placeholder="Enter a Tag" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault02">From Date</label>
+      <input type="date" class="form-control" name="fromdate" id="validationDefault02" required>
+    </div>
+  </div>
+  <div class="form-row text-center">
+    <div class="col-md-6 mb-3">
+        <label for="validationDefault05">Order By</label>
+        <select class="custom-select" id="validationDefault04" name="orderby">
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="validationDefault02">To Date</label>
+        <input type="date" class="form-control" name="todate" id="validationDefault02" required>
+    </div>
+  </div>
+  <br> 
+  <div class="col-md-12 text-center"> 
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+<br>
+<br>
+</form>
+
+
+
+
+{% endblock %}

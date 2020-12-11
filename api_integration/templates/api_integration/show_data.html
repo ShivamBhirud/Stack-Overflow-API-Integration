@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+    <br>
+    <br>
+    <p class="bg-danger">{{ error }}</p>
+    <br>
+{% else %}
+    <br>
+    <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif;">
+        Data Pulled from the Stack-overflow API
+    </h1>
+    <br>
+    <div class="banner container-fluid" style="height: 100%; width: 100%;">
+        <div class="card border-light mb-3">
+            <div class="card-body">
+                {% for data in data %}
+                    <div class="row pt-3">
+                        <div class="col-6" style="cursor: pointer;">
+                            <h4>Title: {{ data.title }}</h4>
+                            <br>
+                            <h4>Score: {{ data.score }}</h4>
+                            <br>
+                            <h4>Link: {{ data.link }}</h4>
+                            <br> 
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
