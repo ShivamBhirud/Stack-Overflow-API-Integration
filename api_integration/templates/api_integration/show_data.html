@@ -32,7 +32,9 @@
           <p class="card-text">Score: {{ data.score }}</p>
         </div>
     </div>
+    <br>
     {% endfor %}
+    
     <!-- Pagination -->
     
     <nav aria-label="Page navigation example">
@@ -45,6 +47,7 @@
             </a>
           </li>
         {% endif %}
+        <li class="page-item"><a class="page-link">{{ page_number }}</a></li>
         {% if has_next %}
           <li class="page-item">
             <a class="page-link" href="{% url 'data' %}?page={{ next_page_number }}&q={{ body_fields.q_field }}&tag={{ body_fields.tag }}&fromdate={{ body_fields.fromdate }}&todate={{ body_fields.todate }}&order={{ body_fields.order }}" aria-label="Next">
@@ -55,20 +58,7 @@
         {% endif %}
         </ul>
       </nav>
-      
-
-
-      
-      <!-- {% for i in paginator.page_range %}
-      <li class="page-item {% if i == page_number %} active {% endif %}">
-          <a class="page-link" href="{% url 'data' %}?page={{ i }}">{{i}}</a>
-      </li>
-      {% endfor %} -->
-
-    <!-- {% if data in request.get_full_path %}
-    <li><a href="{{ request.get_full_path }}&page={{ i }}">{{ i }}</a></li>
-    {% else %}
-    <li><a href="?page={{ i }}">{{ i }}</a></li>
-    {% endif %} -->
+      <br>
+      <br>
 {% endif %}
 {% endblock %}

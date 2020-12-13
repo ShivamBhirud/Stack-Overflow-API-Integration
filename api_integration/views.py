@@ -77,7 +77,7 @@ def get_data(request):
         
         print('line 63 ', page_obj)
         return render(request, 'api_integration/show_data.html',
-            {'data':page_obj.object_list,
+            {'data':page_obj.object_list, 'page_number':page_number,
             'previous_page_number': page_obj.previous_page_number,
             'next_page_number':page_obj.next_page_number, 'body_fields':body_fields,
             'has_previous':page_obj.has_previous,'has_next':page_obj.has_next})    
