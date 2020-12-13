@@ -9,28 +9,66 @@
     <br>
 {% else %}
     <br>
+    {{ body_fields.q_field }}
+    {{ body_fields.tag }}
+    {{ body_fields.fromdate }}
+    {{ body_fields.todate }}
+    {{ body_fields.order }}
+    {{ page_number }}
+    {{ has_previous }}
+    {{ has_next }}
+    
+
+    <!-- Show the Data fetched via API -->
     <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif;">
         Data Pulled from the Stack-overflow API
     </h1>
     <br>
-    <div class="banner container-fluid" style="height: 100%; width: 100%;">
-        <div class="card border-light mb-3">
-            <div class="card-body">
-                {% for data in data %}
-                    <div class="row pt-3">
-                        <div class="col-6" style="cursor: pointer;">
-                            <h4>Title: {{ data.title }}</h4>
-                            <br>
-                            <h4>Score: {{ data.score }}</h4>
-                            <br>
-                            <h4>Link: {{ data.link }}</h4>
-                            <br> 
-                        </div>
-                    </div>
-                    <hr>
-                {% endfor %}
-            </div>
+    {% for data in data %}
+    <div class="card text-center">
+        <h5 class="card-header">Title: {{ data.title }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">Link: {{ data.link }}</h5>
+          <p class="card-text">Score: {{ data.score }}</p>
         </div>
     </div>
+    {% endfor %}
+    <!-- Pagination -->
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+        {% if has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'data' %}?page={{ previous_page_number }}&q={{ body_fields.q_field }}&tag={{ body_fields.tag }}&fromdate={{ body_fields.fromdate }}&todate={{ body_fields.todate }}&order={{ body_fields.order }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if has_next %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'data' %}?page={{ next_page_number }}&q={{ body_fields.q_field }}&tag={{ body_fields.tag }}&fromdate={{ body_fields.fromdate }}&todate={{ body_fields.todate }}&order={{ body_fields.order }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        {% endif %}
+        </ul>
+      </nav>
+      
+
+
+      
+      <!-- {% for i in paginator.page_range %}
+      <li class="page-item {% if i == page_number %} active {% endif %}">
+          <a class="page-link" href="{% url 'data' %}?page={{ i }}">{{i}}</a>
+      </li>
+      {% endfor %} -->
+
+    <!-- {% if data in request.get_full_path %}
+    <li><a href="{{ request.get_full_path }}&page={{ i }}">{{ i }}</a></li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %} -->
 {% endif %}
 {% endblock %}

@@ -8,6 +8,7 @@ class Fields(models.Model):
     todate = models.DateField(default=datetime.now)
     orderby = models.CharField(default='desc', max_length=4)
     counter = models.IntegerField(default=0)
+    q = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.tag
