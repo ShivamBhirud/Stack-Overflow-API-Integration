@@ -15,7 +15,7 @@ def get_data(request):
         tag = request.POST.get('tagged')
         todate = request.POST.get('todate')
         fromdate = request.POST.get('fromdate')
-        order = fields.validate_order(request.POST.get('orderby'))
+        order = request.POST.get('orderby')
         q_field = request.POST.get('q')
 
         body_fields = {'q_field':q_field, 'order':order, 'fromdate':fromdate,
@@ -39,7 +39,7 @@ def get_data(request):
                     'next_page_number':data.next_page_number, 'has_previous':data.has_previous,
                     'body_fields':body_fields, 'page_number':page_number, 'has_next':data.has_next})  
             else:
-                data, paginator, page_number, error = store_data(request,
+                data, paginator, page_number = store_data(request,
                     q_field, tag, fromdate, todate, order)
                 print('line 39:', data)
                 return render(request, 'api_integration/show_data.html',
@@ -48,7 +48,7 @@ def get_data(request):
                     'body_fields':body_fields, 'page_number':page_number, 'has_next':data.has_next})  
         # Data is NOT cached
         except ObjectDoesNotExist: 
-            data, paginator, page_number, error = store_data(request,
+            data, paginator, page_number = store_data(request,
                 q_field, tag, fromdate, todate, order)
             print('line 46:', data)
             return render(request, 'api_integration/show_data.html',
@@ -103,12 +103,7 @@ def store_data(request, q_field, tag, fromdate, todate, order):
         print('successful')
         data, paginator, page_number = get_page(request, cached_data)
         print('line 88:', data)
-        return data, paginator, page_number, False
-    # # TODO try with q =cake and tag = cake
-    # else:
-    #     print('failure')
-    #     error_message = "Couldn't fetch the data. Try other Tags."
-    #     return False, error_message
+        return data, paginator, page_number
 
 # Get data via pagination
 def get_page(request, data):

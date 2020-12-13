@@ -13,14 +13,6 @@ class Fields(models.Model):
     def __str__(self):
         return self.tag
 
-    def validate_order(self, order):
-        if(order == 'Descending'):
-            order = 'desc'
-            return order
-        else:
-            order = 'asc'
-            return order
-
 class Cached_Data(models.Model):
     fields = models.ForeignKey(Fields, on_delete=models.CASCADE,
         related_name='cached')
